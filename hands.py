@@ -27,6 +27,7 @@ def send_hands(client: udp_client,
             builder.add_arg(landmark.z)
             builder.add_arg(landmark.visibility)
     msg = builder.build()
+    print(msg)
     client.send(msg)
 
 
@@ -57,7 +58,7 @@ def main():
         # pass by reference.
         image.flags.writeable = False
         results = hands.process(image)
-
+        print(results.multi_hand_landmarks)
         send_hands(client, results.multi_hand_landmarks)
 
         # Draw the hand annotations on the image.
