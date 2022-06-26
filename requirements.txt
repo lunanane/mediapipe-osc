@@ -1,3 +1,5 @@
 mediapipe==0.8.7.3
 opencv-python
 python-osc
+
+python hands2gamma.py --ip 127.0.0.1 --port 4444
