@@ -75,10 +75,10 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
 					builder.add_arg(landmark.z)
 					builder.add_arg(landmark.visibility)
 				msg = builder.build()
-				print(msg)
+				#print(msg)
 				client.send(msg)
 		
-		if results.left_hand_landmarks is None:
+		if results.right_hand_landmarks is None:
 			client.send_message(OSC_ADDRESS_right, 0)
 		else:
 			builder = OscMessageBuilder(address=OSC_ADDRESS_right)	
@@ -92,7 +92,7 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
 					builder.add_arg(landmark.z)
 					builder.add_arg(landmark.visibility)
 				msg = builder.build()
-				print(msg)
+				#print(msg)
 				client.send(msg)
 		# face_landmarks, pose_landmarks, left_hand_landmarks, left_hand_landmarks
 		
