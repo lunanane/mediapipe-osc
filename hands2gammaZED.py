@@ -48,14 +48,33 @@ mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
 mp_holistic = mp.solutions.holistic
 
+HIGH_VALUE = 10000
+WIDTH = 4416
+HEIGHT = 1242
+
 cap = cv2.VideoCapture(0)
+fourcc = cv2.VideoWriter_fourcc(*'XVID')
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, WIDTH)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, HEIGHT)
+cap.set(cv2.CAP_PROP_FPS, 60)
+width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+
+#2208x1242 is zed cam max resolution for one lens
+
+print(width,height)
+
 # Initiate holistic model
 with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:   
 	while cap.isOpened():
 		ret, frame = cap.read()
-        
         # Recolor Feed
 		image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+		y=0
+		x=0
+		h=1242
+		w=2208
+		image = image[y:y+h, x:x+w]
         # Make Detections
 		results = holistic.process(image)
         # print(results.face_landmarks)
@@ -99,7 +118,7 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
 		# Recolor image back to BGR for rendering
 		image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 		# 1. Draw face landmarks
-		# mp_drawing.draw_landmarks(image, results.face_landmarks, mp_holistic.FACEMESH_TESSELATION, 
+		#mp_drawing.draw_landmarks(image, results.face_landmarks, mp_holistic.FACEMESH_TESSELATION, 
                                  # mp_drawing.DrawingSpec(color=(80,110,10), thickness=1, circle_radius=1),
                                  # mp_drawing.DrawingSpec(color=(80,256,121), thickness=1, circle_radius=1)
                                  # )
